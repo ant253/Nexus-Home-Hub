@@ -71,3 +71,22 @@ h1 {
         width: 95%;
     }
 }
+
+/* Add these new styles */
+.nav-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #6c757d;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    transition: background-color 0.2s;
+}
+
+.nav-button:hover {
+    background-color: #545b62;
+}
