@@ -13,6 +13,15 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Add this new route before your other routes
+app.get('/setup.html', (req, res) => {
+    const users = loadUsers();
+    if (users.length > 0) {
+        return res.redirect('/');
+    }
+    res.sendFile(path.join(__dirname, 'public', 'setup.html'));
+});
+
 // Routes
 const authRoutes = require('./routes/auth');
 app.use('/api/auth', authRoutes);

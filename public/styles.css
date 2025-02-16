@@ -10,11 +10,11 @@ body {
 
 .container {
     background: white;
-    padding: 80px;
+    padding: 100px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 90%;
-    max-width: 600px;
+    width: 95%;
+    max-width: 800px;
     min-width: 300px;
     box-sizing: border-box;
 }
@@ -56,7 +56,7 @@ h1 {
 
 @media (max-width: 768px) {
     .container {
-        padding: 40px;
+        padding: 50px;
         width: 95%;
     }
 }
