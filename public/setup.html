@@ -18,21 +18,20 @@
   </div>
   <script>
     document.getElementById('setupForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const username = document.getElementById('username').value;
-      const password = document.getElementById('password').value;
-      const response = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
-      });
-      const data = await response.json();
-      if (response.ok) {
-        alert('Admin account created successfully');
-        window.location.href = '/login.html';
-      } else {
-        alert(data.message);
-      }
+        e.preventDefault();
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const response = await fetch('/api/auth/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password })
+        });
+        if (response.ok) {
+            window.location.href = '/login.html';
+        } else {
+            const data = await response.json();
+            // Optional: Add a more subtle error message display if needed
+        }
     });
   </script>
 </body>
