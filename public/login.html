@@ -6,10 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - Nexus</title>
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/auth.css">
 </head>
 <body>
   <div class="container">
     <h1>Login - Nexus</h1>
+    <div id="error-message" class="error-message"></div>
     <form id="loginForm">
       <input type="text" id="username" placeholder="Username" required>
       <input type="password" id="password" placeholder="Password" required>
@@ -30,7 +32,9 @@
             window.location.href = '/';
         } else {
             const data = await response.json();
-            // Optional: Add a more subtle error message display if needed
+            const errorDiv = document.getElementById('error-message');
+            errorDiv.textContent = 'Invalid username or password';
+            errorDiv.style.display = 'block';
         }
     });
   </script>

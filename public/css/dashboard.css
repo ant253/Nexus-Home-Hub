@@ -19,6 +19,13 @@
     gap: 1rem;
 }
 
+.nav-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
 .logo {
     height: 48px;
     width: 48px;
@@ -52,6 +59,12 @@
 
 .user-button i {
     font-size: 1.4rem;
+}
+
+.user-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .dropdown-menu {

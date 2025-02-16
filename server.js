@@ -12,30 +12,6 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Add this middleware function after your existing imports
-const authenticateUser = (req, res, next) => {
-    const token = req.cookies.token;
-    if (!token) {
-        return res.redirect('/login.html');
-    }
-    try {
-        jwt.verify(token, 'secret');
-        next();
-    } catch (err) {
-        res.redirect('/login.html');
-    }
-};
-
-// Add these routes before your existing routes
-app.get('/', authenticateUser, (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
-app.get('/settings.html', authenticateUser, (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'settings.html'));
-});
-
-// Routes
 const authRoutes = require('./routes/auth');
 app.use('/api/auth', authRoutes);
 
