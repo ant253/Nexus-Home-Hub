@@ -2,23 +2,26 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { loadUsers, saveUsers } = require('../server');
 
 const router = express.Router();
-const users = []; // In-memory user storage
 
 // Register route (initial setup)
 router.post('/register', (req, res) => {
+  const users = loadUsers();
   if (users.length > 0) {
     return res.status(403).send({ message: 'Admin account already exists' });
   }
   const { username, password } = req.body;
   const hashedPassword = bcrypt.hashSync(password, 8);
   users.push({ username, password: hashedPassword });
+  saveUsers(users);
   res.status(201).send({ message: 'Admin account created successfully' });
 });
 
 // Login route
 router.post('/login', (req, res) => {
+  const users = loadUsers();
   const { username, password } = req.body;
   const user = users.find(u => u.username === username);
   if (user && bcrypt.compareSync(password, user.password)) {
