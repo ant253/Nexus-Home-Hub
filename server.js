@@ -41,7 +41,17 @@ app.get('/', (req, res) => {
 
 // Protect dashboard access
 app.get('/index.html', (req, res) => {
-    res.redirect('/');
+    const token = req.cookies.token;
+    if (!token) {
+        return res.redirect('/login.html');
+    }
+    
+    try {
+        jwt.verify(token, 'secret');
+        res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    } catch (err) {
+        res.redirect('/login.html');
+    }
 });
 
 app.listen(PORT, () => {
