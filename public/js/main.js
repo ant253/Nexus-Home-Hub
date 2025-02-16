@@ -16,6 +16,11 @@ window.addEventListener('click', (e) => {
 
 // Logout functionality
 document.getElementById('logoutButton').addEventListener('click', async () => {
-    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    // Clear all cookies
+    document.cookie.split(";").forEach(function(c) { 
+        document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+    });
+    
+    // Redirect to login page
     window.location.href = '/login.html';
 });
