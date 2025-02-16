@@ -29,7 +29,7 @@
       const data = await response.json();
       if (response.ok) {
         alert('Admin account created successfully');
-        window.location.href = '/';
+        window.location.href = '/login.html';
       } else {
         alert(data.message);
       }
