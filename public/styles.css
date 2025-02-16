@@ -11,10 +11,10 @@ body {
 
 .container {
     background: white;
-    padding: 40px;  /* Increased padding */
+    padding: 60px;  /* Increased padding from 40px to 60px */
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 400px;   /* Set fixed width */
+    width: 500px;   /* Increased width from 400px to 500px */
     box-sizing: border-box;
 }
 
