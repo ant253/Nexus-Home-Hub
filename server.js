@@ -12,6 +12,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Routes
 const authRoutes = require('./routes/auth');
 app.use('/api/auth', authRoutes);
 
@@ -19,10 +20,12 @@ app.use('/api/auth', authRoutes);
 app.get('/', (req, res) => {
     const users = loadUsers();
     
+    // Check if there are any users
     if (users.length === 0) {
         return res.redirect('/setup.html');
     }
     
+    // If there are users, check authentication
     const token = req.cookies.token;
     if (!token) {
         return res.redirect('/login.html');
@@ -34,6 +37,11 @@ app.get('/', (req, res) => {
     } catch (err) {
         res.redirect('/login.html');
     }
+});
+
+// Protect dashboard access
+app.get('/index.html', (req, res) => {
+    res.redirect('/');
 });
 
 app.listen(PORT, () => {
