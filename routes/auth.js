@@ -1,10 +1,12 @@
-// filepath: routes/auth.js
+// routes/auth.js
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { loadUsers, saveUsers } = require('../server');
+const { loadUsers, saveUsers } = require('../utils/users');
 
 const router = express.Router();
+
+// Rest of the code remains the same
 
 // Register route (initial setup)
 router.post('/register', (req, res) => {
