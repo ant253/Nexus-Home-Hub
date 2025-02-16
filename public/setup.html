@@ -10,6 +10,7 @@
 <body>
   <div class="container">
     <h1>Setup Nexus</h1>
+    <div id="error-message" class="error-message"></div>
     <form id="setupForm">
       <input type="text" id="username" placeholder="Username" required>
       <input type="password" id="password" placeholder="Password" required>
@@ -30,7 +31,9 @@
             window.location.href = '/login.html';
         } else {
             const data = await response.json();
-            // Optional: Add a more subtle error message display if needed
+            const errorDiv = document.getElementById('error-message');
+            errorDiv.textContent = data.message;
+            errorDiv.style.display = 'block';
         }
     });
   </script>
