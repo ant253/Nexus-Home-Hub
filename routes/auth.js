@@ -6,8 +6,6 @@ const { loadUsers, saveUsers } = require('../utils/users');
 
 const router = express.Router();
 
-// Rest of the code remains the same
-
 // Register route (initial setup)
 router.post('/register', (req, res) => {
   const users = loadUsers();

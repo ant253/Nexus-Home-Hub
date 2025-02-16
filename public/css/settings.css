@@ -1,0 +1,48 @@
+.settings-container {
+    max-width: 800px;
+    margin: 6rem auto 2rem;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.settings-section {
+    margin-top: 2rem;
+}
+
+.setting-item {
+    margin: 1.5rem 0;
+    padding: 1.5rem;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+}
+
+.setting-item label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.setting-item input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+}
+
+.save-button {
+    padding: 0.75rem 1.5rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.save-button:hover {
+    background-color: #0056b3;
+}

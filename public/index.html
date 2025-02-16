@@ -1,0 +1,39 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <img src="assets/logo.png" alt="Nexus Logo" class="logo">
+            <span class="brand-name">Nexus Home Hub</span>
+        </div>
+        <div class="nav-right">
+            <div class="user-menu">
+                <button class="user-button" id="userButton">
+                    <i class="fas fa-user"></i>
+                </button>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <button class="dropdown-item">
+                        <i class="fas fa-cog"></i>
+                        Settings
+                    </button>
+                    <button class="dropdown-item" id="logoutButton">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,4 +1,3 @@
-// filepath: server.js
 const express = require('express');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
@@ -12,15 +11,6 @@ const PORT = 3000;
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-// Remove or comment out this route as we don't need it anymore
-// app.get('/setup.html', (req, res) => {
-//     const users = loadUsers();
-//     if (users.length > 0) {
-//         return res.redirect('/');
-//     }
-//     res.sendFile(path.join(__dirname, 'public', 'setup.html'));
-// });
 
 // Routes
 const authRoutes = require('./routes/auth');
