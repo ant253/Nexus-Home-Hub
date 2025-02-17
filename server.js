@@ -45,6 +45,27 @@ app.get('/index.html', (req, res) => {
     res.redirect('/');
 });
 
+// Add this after your existing route handlers
+app.get('/settings.html', (req, res) => {
+    const users = loadUsers();
+    
+    if (users.length === 0) {
+        return res.redirect('/setup.html');
+    }
+    
+    const token = req.cookies.token;
+    if (!token) {
+        return res.redirect('/login.html');
+    }
+    
+    try {
+        jwt.verify(token, 'secret');
+        res.sendFile(path.join(__dirname, 'public', 'settings.html'));
+    } catch (err) {
+        res.redirect('/login.html');
+    }
+});
+
 // Static files middleware - After route handlers
 app.use(express.static(path.join(__dirname, 'public')));
 

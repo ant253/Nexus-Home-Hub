@@ -1,9 +1,9 @@
 .settings-container {
     max-width: 800px;
-    margin: 6rem auto 2rem;
+    margin: 80px auto 2rem;  /* Adjusted top margin to account for navbar */
     padding: 2rem;
     background-color: white;
-    border-radius: 10px;
+    border-radius: 12px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
@@ -31,6 +31,53 @@
     border: 1px solid #ddd;
     border-radius: 5px;
     margin-bottom: 1rem;
+}
+
+.password-container {
+    position: relative;
+    width: 100%;
+    display: inline-block;
+}
+
+.password-container input {
+    width: 100%;
+    padding-right: 35px;
+    box-sizing: border-box;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #666;
+    padding: 0;
+    margin: 0;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+}
+
+.password-toggle:hover, 
+.password-toggle:focus, 
+.password-toggle:active {
+    outline: none;
+    background: none;
+    color: #666;
+    border: none;
+    box-shadow: none;
+}
+
+.password-toggle i {
+    font-size: 16px;
+    pointer-events: none;
 }
 
 .save-button {
