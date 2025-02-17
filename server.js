@@ -10,49 +10,43 @@ const PORT = 3000;
 
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
 const authRoutes = require('./routes/auth');
 app.use('/api/auth', authRoutes);
 
-// Root route handler
+// Root route handler - Must be before static files
 app.get('/', (req, res) => {
     const users = loadUsers();
     
-    // Check if there are any users
     if (users.length === 0) {
         return res.redirect('/setup.html');
     }
     
-    // If there are users, check authentication
     const token = req.cookies.token;
     if (!token) {
         return res.redirect('/login.html');
     }
     
     try {
-        jwt.verify(token, 'secret');
+        const decoded = jwt.verify(token, 'secret');
+        if (!decoded) {
+            throw new Error('Invalid token');
+        }
         res.sendFile(path.join(__dirname, 'public', 'index.html'));
     } catch (err) {
+        res.clearCookie('token', { path: '/' });
         res.redirect('/login.html');
     }
 });
 
-// Protect dashboard access
+// Protect direct access to dashboard
 app.get('/index.html', (req, res) => {
-    const token = req.cookies.token;
-    if (!token) {
-        return res.redirect('/login.html');
-    }
-    
-    try {
-        jwt.verify(token, 'secret');
-        res.sendFile(path.join(__dirname, 'public', 'index.html'));
-    } catch (err) {
-        res.redirect('/login.html');
-    }
+    res.redirect('/');
 });
+
+// Static files middleware - After route handlers
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);

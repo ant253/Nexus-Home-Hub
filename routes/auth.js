@@ -33,4 +33,10 @@ router.post('/login', (req, res) => {
   }
 });
 
+// Add new logout route
+router.post('/logout', (req, res) => {
+    res.clearCookie('token', { path: '/' });
+    res.status(200).send({ message: 'Logged out successfully' });
+});
+
 module.exports = router;

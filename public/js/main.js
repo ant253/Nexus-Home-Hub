@@ -17,10 +17,17 @@ window.addEventListener('click', (e) => {
 // Logout functionality
 document.getElementById('logoutButton').addEventListener('click', async () => {
     // Clear all cookies
-    document.cookie.split(";").forEach(function(c) { 
-        document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+    document.cookie.split(';').forEach(cookie => {
+        const [name] = cookie.split('=');
+        document.cookie = `${name.trim()}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
     });
-    
+
+    // Server-side logout call
+    await fetch('/api/auth/logout', {
+        method: 'POST',
+        credentials: 'same-origin'
+    });
+
     // Redirect to login page
     window.location.href = '/login.html';
 });
