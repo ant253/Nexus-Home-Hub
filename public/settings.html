@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </script>
     <title>Settings - Nexus</title>
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/dashboard.css">
@@ -14,7 +15,9 @@
 <body>
     <nav class="navbar">
         <div class="nav-left">
-            <img src="/assets/logo.png" alt="Nexus Logo" class="logo">
+            <a href="/" class="logo-link">
+                <img src="/assets/logo.png" alt="Nexus Logo" class="logo">
+            </a>
             <span class="brand-name">Nexus Home Hub</span>
         </div>
         <div class="nav-right">
@@ -36,28 +39,129 @@
         </div>
     </nav>
 
-    <div class="settings-container">
+    <div class="main-heading">
         <h1>Settings</h1>
+    </div>
+
+    <div class="settings-container">
         <div class="settings-section">
-            <h2>User Settings</h2>
+            <h2 class="section-title">Account Settings</h2>
             <div class="setting-item">
                 <label for="changeUsername">Change Username</label>
                 <input type="text" id="changeUsername" placeholder="New username">
-                <button class="save-button">Save</button>
+                <button class="save-button" onclick="changeUsername()">Save</button>
+                <div class="message-container" id="username-message"></div>
             </div>
             <div class="setting-item">
-                <label for="changePassword">Change Password</label>
+                <label for="currentPassword">Current Password</label>
                 <div class="password-container">
-                    <input type="password" id="changePassword" placeholder="New password">
-                    <button type="button" class="password-toggle" aria-label="Toggle password visibility" onclick="togglePassword('changePassword')">
+                    <input type="password" id="currentPassword" placeholder="Current password">
+                    <button type="button" class="password-toggle" aria-label="Toggle password visibility" onclick="togglePassword('currentPassword')">
                         <i class="fas fa-eye"></i>
                     </button>
                 </div>
-                <button class="save-button">Save</button>
+                <label for="newPassword">New Password</label>
+                <div class="password-container">
+                    <input type="password" id="newPassword" placeholder="New password">
+                    <button type="button" class="password-toggle" aria-label="Toggle password visibility" onclick="togglePassword('newPassword')">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+                <button class="save-button" onclick="changePassword()">Change Password</button>
+                <div class="message-container" id="password-message"></div>
+            </div>
+        </div>
+
+        <div class="settings-section">
+            <h2 class="section-title">Preferences</h2>
+            <div class="setting-item">
+                <div class="preference-row">
+                    <label for="themeToggle">Theme</label>
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="themeToggle">
+                        <label for="themeToggle" class="toggle-label"></label>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <script src="/js/main.js"></script>
+    <script>
+        async function changePassword() {
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const messageContainer = document.getElementById('password-message');
+
+            // Clear previous messages
+            messageContainer.innerHTML = '';
+
+            // Check if passwords are the same
+            if (currentPassword === newPassword) {
+                showMessage(messageContainer, 'New password must be different from current password', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/auth/change-password', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ currentPassword, newPassword })
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showMessage(messageContainer, 'Password changed successfully!', 'success');
+                    document.getElementById('currentPassword').value = '';
+                    document.getElementById('newPassword').value = '';
+                } else {
+                    showMessage(messageContainer, data.message, 'error');
+                }
+            } catch (error) {
+                showMessage(messageContainer, 'An error occurred while changing the password', 'error');
+            }
+        }
+
+        async function changeUsername() {
+            const newUsername = document.getElementById('changeUsername').value;
+            const messageContainer = document.getElementById('username-message');
+
+            // Clear previous messages
+            messageContainer.innerHTML = '';
+
+            try {
+                const response = await fetch('/api/auth/change-username', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ newUsername })
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showMessage(messageContainer, 'Username changed successfully!', 'success');
+                    document.getElementById('changeUsername').value = '';
+                } else {
+                    showMessage(messageContainer, data.message, 'error');
+                }
+            } catch (error) {
+                showMessage(messageContainer, 'An error occurred while changing the username', 'error');
+            }
+        }
+
+        function showMessage(container, message, type) {
+            const messageElement = document.createElement('div');
+            messageElement.className = `message ${type}-message`;
+            messageElement.textContent = message;
+            container.appendChild(messageElement);
+            messageElement.style.display = 'block';
+            
+            setTimeout(() => {
+                messageElement.style.display = 'none';
+                setTimeout(() => messageElement.remove(), 300);
+            }, 3000);
+        }
+    </script>
 </body>
 </html>

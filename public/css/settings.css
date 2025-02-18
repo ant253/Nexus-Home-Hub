@@ -1,48 +1,234 @@
+body {
+    display: block; /* Change from flex to block */
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Remove old page-title styles and add new main heading styles */
+.main-heading {
+    text-align: center;
+    padding: 15px 0; /* Reduced from 40px */
+    margin-top: 60px; /* Keep this to maintain space below navbar */
+}
+
+.main-heading h1 {
+    display: inline-block;
+    font-size: 4rem;
+    color: #333;
+    margin: 0;
+    font-weight: 800;
+    background-color: white;
+    padding: 10px 30px; /* Reduced from 20px 60px */
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Remove the subtitle */
+.page-title::after {
+    content: none; /* Remove the subtitle text */
+}
+
+/* Update container size to match login/setup width */
 .settings-container {
-    max-width: 800px;
-    margin: 80px auto 2rem;  /* Adjusted top margin to account for navbar */
-    padding: 2rem;
+    max-width: 800px; /* Changed from 2400px to match auth containers */
+    position: relative; /* Add this */
+    top: 0px; /* Changed from -80px to move container back down */
+    width: 95%;
+    margin: 0 auto; /* Remove top margin and keep horizontal centering */
+    padding: 2rem; /* Reduced from 4rem */
     background-color: white;
     border-radius: 12px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
+/* Adjust section spacing */
 .settings-section {
-    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem; /* Keep this the same */
 }
 
+.settings-section:first-child {
+    margin-top: 0; /* Keep this at 0 */
+}
+
+.settings-section:last-child {
+    margin-top: 0; /* Remove space before Preferences section */
+}
+
+/* Keep section titles left-aligned */
+.section-title {
+    text-align: left;
+    color: #333;
+    margin-bottom: 1rem; /* Reduced from 1.2rem */
+    font-size: 2.4rem;
+    font-weight: 800;
+    border-bottom: 3px solid #333;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+/* Make setting items more compact */
 .setting-item {
-    margin: 1.5rem 0;
-    padding: 1.5rem;
-    border-radius: 8px;
+    margin: 0.5rem 0; /* Reduced from 1rem */
+    padding: 1.5rem; /* Reduced from 2rem */
+    border-radius: 12px;
     background-color: #f8f9fa;
+    width: 100%; /* Ensure full width */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center children */
+}
+
+.setting-item input,
+.password-container,
+.save-button {
+    width: 100%; /* Make all form elements take full width */
+    max-width: none; /* Remove any max-width restrictions */
 }
 
 .setting-item label {
     display: block;
-    margin-bottom: 0.5rem;
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    color: #333;
+    width: 100%; /* Ensure full width */
+    text-align: left; /* Align text to the left */
+    align-self: flex-start; /* Align the label itself to the left */
+}
+
+.setting-item input {
+    width: 100%;
+    padding: 0.8rem; /* Increased padding */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 0; /* Remove all margins */
+    font-size: 1.1rem; /* Larger font */
+}
+
+/* Add space between password sections */
+.setting-item label[for="newPassword"] {
+    margin-top: 25px; /* Adds space above the "New Password" label */
+    display: block;
+}
+
+/* Adjust preference row spacing */
+.preference-row {
+    display: flex;
+    justify-content: center; /* Keep items centered */
+    align-items: center;
+    padding: 0;
+    gap: 15px; /* Adjust gap as needed */
+    width: 100%;
+    max-width: 180px; /* Adjust max-width as needed */
+    margin: 0 auto; /* Center the row itself */
+}
+
+.preference-row:not(:last-child) {
+    margin-bottom: 1rem;
+}
+
+.preference-row label {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0; /* Remove any margins */
+    line-height: 30px; /* Align with toggle switch */
+}
+
+/* Toggle switch styling */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 100px;
+    height: 34px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-label {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #007bff;
+    transition: .4s;
+    border-radius: 34px;
+    display: block;
+    width: 100px;
+    height: 34px;
+}
+
+.toggle-label:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.toggle-switch input:checked + .toggle-label {
+    background-color: #333;
+}
+
+.toggle-switch input:checked + .toggle-label:before {
+    transform: translateX(23px); /* Adjusted to stay within the wider background */
+}
+
+/* Theme toggle specific styling */
+.setting-item label {
+    display: block;
+    margin: 0;
+    padding: 0;
     font-weight: bold;
     color: #333;
 }
 
 .setting-item input {
     width: 100%;
-    padding: 0.75rem;
+    padding: 0.8rem; /* Increased padding */
     border: 1px solid #ddd;
     border-radius: 5px;
-    margin-bottom: 1rem;
+    margin: 0; /* Remove all margins */
+    font-size: 1.1rem; /* Larger font */
 }
 
+label[for="newPassword"] {
+    margin-top: 20px !important; /* Reduced from 35px */
+}
+
+/* Ensure password container spans full width */
 .password-container {
     position: relative;
     width: 100%;
-    display: inline-block;
+    display: block;
+    margin-bottom: 15px; /* Adds consistent spacing below password containers */
 }
 
 .password-container input {
     width: 100%;
     padding-right: 35px;
     box-sizing: border-box;
+    margin: 0; /* Remove all margins */
+}
+
+.password-container:last-of-type {
+    margin-bottom: 0;
 }
 
 .password-toggle {
@@ -80,16 +266,94 @@
     pointer-events: none;
 }
 
+/* Make inputs and buttons larger */
 .save-button {
-    padding: 0.75rem 1.5rem;
+    padding: 0.8rem 1.2rem; /* Larger padding */
     background-color: #007bff;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.2s;
+    margin-top: 15px; /* Reduced from 8px */
+    font-size: 1.1rem; /* Larger font */
 }
 
 .save-button:hover {
     background-color: #0056b3;
+}
+
+.error-message {
+    display: none;
+    color: #dc3545;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.success-message {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #28a745;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 5px;
+    z-index: 1000;
+    animation: slideDown 0.3s ease-out;
+}
+
+h1 { color: #333; margin-bottom: 1.5rem; }
+h2 { color: #444; margin-bottom: 1rem; }
+
+/* Remove duplicate message and error/success message styles */
+.message-container {
+    margin-top: 10px;
+    min-height: 0;
+    transition: min-height 0.3s ease;
+}
+
+.message {
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 10px;
+    display: none;
+}
+
+.error-message {
+    color: #dc3545;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+}
+
+.success-message {
+    color: #28a745;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+}
+
+/* Remove duplicate input and label styles */
+.setting-item input,
+.setting-item label {
+    /* Keep only one declaration */
+}
+
+/* Remove unused animations and transitions */
+@keyframes slideDown {
+    /* This animation isn't used anymore */
+}
+
+/* Remove redundant media queries */
+@media (min-height: 600px) {
+    /* These aren't needed anymore */
+}
+
+/* Remove unused message container styles */
+#message-container {
+    /* This isn't used anymore */
 }

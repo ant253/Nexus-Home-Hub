@@ -16,7 +16,7 @@
 .nav-left {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1rem; /* Gap between logo and text is now handled here */
 }
 
 .nav-right {
@@ -36,6 +36,17 @@
     /* Added properties for better image quality */
     image-rendering: -webkit-optimize-contrast;  /* For Chrome/Safari */
     image-rendering: crisp-edges;               /* For Firefox */
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.logo-link:hover {
+    opacity: 0.8;
 }
 
 .brand-name {
@@ -88,6 +99,7 @@
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     min-width: 200px;
     padding: 0; /* Removed padding */
+    animation: fadeIn 0.2s ease;
 }
 
 .dropdown-menu.show {

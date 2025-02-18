@@ -1,3 +1,13 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
 .container {
     background: white;
     padding: 100px;
@@ -7,7 +17,7 @@
     max-width: 800px;
     min-width: 300px;
     box-sizing: border-box;
-    margin: 50px auto;
+    margin: 0; /* Remove margin since we're using flex centering */
 }
 
 .error-message {
@@ -23,7 +33,7 @@
 
 input {
     display: block;
-    margin: 15px 0;
+    margin: 8px 0; /* Reduced from 15px to 8px */
     padding: 15px;
     width: 100%;
     border: 1px solid #ccc;
@@ -40,9 +50,12 @@ button {
     background-color: #007bff;
     color: white;
     cursor: pointer;
-    margin-top: 25px;
     font-size: 16px;
     transition: background-color 0.2s;
+}
+
+button[type="submit"] {
+    margin-top: 25px; /* Keep this the same for visual separation */
 }
 
 button:hover {
@@ -60,6 +73,7 @@ h1 {
     position: relative;
     width: 100%;
     display: inline-block;
+    margin: 8px 0; /* Reduced from 15px to 8px */
 }
 
 .password-container input {

@@ -39,4 +39,102 @@ router.post('/logout', (req, res) => {
     res.status(200).send({ message: 'Logged out successfully' });
 });
 
+// Add these new routes to the existing router
+router.post('/change-password', (req, res) => {
+    const users = loadUsers();
+    const { currentPassword, newPassword } = req.body;
+    const token = req.cookies.token;
+
+    try {
+        const decoded = jwt.verify(token, 'secret');
+        const user = users.find(u => u.username === decoded.username);
+
+        if (!user || !bcrypt.compareSync(currentPassword, user.password)) {
+            return res.status(401).json({ message: 'Current password is incorrect' });
+        }
+
+        // Update password
+        user.password = bcrypt.hashSync(newPassword, 8);
+        saveUsers(users);
+        
+        res.json({ message: 'Password changed successfully' });
+    } catch (error) {
+        res.status(401).json({ message: 'Authentication failed' });
+    }
+});
+
+router.post('/change-username', (req, res) => {
+    const users = loadUsers();
+    const { newUsername } = req.body;
+    const token = req.cookies.token;
+
+    try {
+        const decoded = jwt.verify(token, 'secret');
+        const user = users.find(u => u.username === decoded.username);
+
+        if (!user) {
+            return res.status(401).json({ message: 'User not found' });
+        }
+
+        // Check if new username already exists
+        if (users.some(u => u.username === newUsername)) {
+            return res.status(400).json({ message: 'Username already exists' });
+        }
+
+        // Update username
+        user.username = newUsername;
+        saveUsers(users);
+
+        // Create new token with new username
+        const newToken = jwt.sign({ username: newUsername }, 'secret', { expiresIn: '1h' });
+        res.cookie('token', newToken, { httpOnly: true });
+        
+        res.json({ message: 'Username changed successfully' });
+    } catch (error) {
+        res.status(401).json({ message: 'Authentication failed' });
+    }
+});
+
+// Add to existing router
+router.post('/theme', (req, res) => {
+    const { darkMode } = req.body;
+    const token = req.cookies.token;
+
+    try {
+        const decoded = jwt.verify(token, 'secret');
+        const users = loadUsers();
+        const user = users.find(u => u.username === decoded.username);
+
+        if (!user) {
+            return res.status(401).json({ message: 'User not found' });
+        }
+
+        // Save theme preference
+        user.darkMode = darkMode;
+        saveUsers(users);
+        
+        res.json({ message: 'Theme preference saved' });
+    } catch (error) {
+        res.status(401).json({ message: 'Authentication failed' });
+    }
+});
+
+router.get('/theme', (req, res) => {
+    const token = req.cookies.token;
+
+    try {
+        const decoded = jwt.verify(token, 'secret');
+        const users = loadUsers();
+        const user = users.find(u => u.username === decoded.username);
+
+        if (!user) {
+            return res.status(401).json({ message: 'User not found' });
+        }
+
+        res.json({ darkMode: user.darkMode || false });
+    } catch (error) {
+        res.status(401).json({ message: 'Authentication failed' });
+    }
+});
+
 module.exports = router;

@@ -1,19 +1,31 @@
-/* public/css/styles.css */
+/* Root styling */
+:root {
+    color-scheme: light dark;
+    transition: none; /* Disable transition on initial load */
+}
+
+html {
+    background-color: #f0f0f0;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+html.dark-theme {
+    background-color: #333;
+}
+
+/* Global styles */
 body {
     font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f0f0f0;
     margin: 0;
+    background-color: inherit; /* Inherit from html */
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .container {
     background: white;
     padding: 100px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     width: 95%;
     max-width: 800px;
     min-width: 300px;
@@ -23,9 +35,10 @@ body {
     align-items: center;
 }
 
+/* Form elements */
 input {
     display: block;
-    margin: 15px 0;
+    margin: 8px 0;
     padding: 15px;
     width: 100%;
     border: 1px solid #ccc;
@@ -42,33 +55,50 @@ button {
     background-color: #007bff;
     color: white;
     cursor: pointer;
-    margin-top: 25px;
     font-size: 16px;
     transition: background-color 0.2s;
+    margin-top: 25px;
 }
 
 button:hover {
     background-color: #0056b3;
 }
 
+/* Typography */
 h1 {
-    margin-top: 0;
-    margin-bottom: 30px;
+    margin: 0 0 30px;
     text-align: center;
     font-size: 2em;
+    color: #333;
 }
 
-.error-message {
-    display: none;
-    color: #dc3545;
-    background-color: #f8d7da;
-    border: 1px solid #f5c6cb;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 15px;
-    text-align: center;
+/* Password toggle */
+.password-container {
+    position: relative;
+    width: 100%;
+    margin: 8px 0;
 }
 
+.password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #666;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+}
+
+/* Forms */
+form {
+    width: 100%;
+}
+
+/* Media Queries */
 @media (max-width: 768px) {
     .container {
         padding: 50px;
@@ -76,6 +106,67 @@ h1 {
     }
 }
 
-form {
-    width: 100%;
+/* Theme transitions */
+html.dark-theme,
+body.dark-theme {
+    background-color: #333;
+    color: white;
+}
+
+body.dark-theme .container,
+body.dark-theme .settings-container,
+body.dark-theme .navbar,
+body.dark-theme .main-heading h1,
+body.dark-theme .setting-item {
+    background-color: #222;
+    color: white;
+}
+
+/* Add these new selectors */
+body.dark-theme .login-title,
+body.dark-theme h1,
+body.dark-theme .main-heading h1 {
+    color: white !important; /* Force white color */
+}
+
+/* Keep other dark theme styles */
+body.dark-theme .setting-item label,
+body.dark-theme .section-title,
+body.dark-theme .brand-name {
+    color: white;
+}
+
+body.dark-theme input {
+    background-color: #333;
+    color: white;
+    border-color: #444;
+}
+
+body.dark-theme .dropdown-menu {
+    background-color: #222;
+}
+
+body.dark-theme .dropdown-item {
+    color: white;
+}
+
+body.dark-theme .dropdown-item:hover {
+    background-color: #444;
+}
+
+/* Keep buttons blue in both themes */
+.save-button,
+.user-button {
+    background-color: #007bff;
+}
+
+.save-button:hover,
+.user-button:hover {
+    background-color: #0056b3;
+}
+
+/* Remove transition from initial load */
+.no-transition,
+.no-transition * {
+    transition: none !important;
 }
